@@ -1,0 +1,5 @@
+SELECT name, age
+into oldest
+from crew_member
+where age = (select max(age) from crew_member)
+

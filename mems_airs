@@ -1,0 +1,6 @@
+create table members_aircrafts (
+	id_a integer references aircraft(id),
+	id_c integer references crew_member(id),
+	
+	primary key (id_c, id_a)
+);

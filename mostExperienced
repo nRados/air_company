@@ -1,0 +1,22 @@
+SELECT id, name, age,
+count (members_aircrafts.id_cm) as countair
+from crew_member
+join members_aircrafts ON crew_member.id = members_aircrafts.id_cm
+group by id, name, age;
+
+select id, name, age, max(countair) as highest_countair
+into mostExperienced
+from (
+	select id, name, age,
+	count (members_aircrafts.id_cm) as countair
+	from crew_member
+	join members_aircrafts ON crew_member.id = members_aircrafts.id_cm
+	group by id, name, age
+)as t
+where countair = (select max(countair) from (
+	SELECT id, name, age,  count (members_aircrafts.id_cm) as countair
+	from crew_member
+	join members_aircrafts ON crew_member.id = members_aircrafts.id_cm
+	group by id, name, age
+)as z)
+group by t.id, t.name, t.age
